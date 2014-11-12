@@ -25,3 +25,18 @@ exports.create = function (req, callback) {
     });
   });
 };
+
+exports.getAll = function (callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log('Connected correctly to server');
+
+    db.collection('reminders').find().toArray(function(err, docs) {
+      assert.equal(err, null);
+      console.log('Found ' + docs.length + ' docs');
+      db.close();
+      console.log('Connection closed');
+      callback(docs);
+    });
+  });
+};

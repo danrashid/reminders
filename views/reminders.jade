@@ -2,6 +2,15 @@ extends layout
 
 block content
   h1= title
+  if reminders.length
+    ul
+      each reminder in reminders
+        li
+          a(href="/reminders/#{reminder._id}")= reminder.name
+  else
+    h3 You don’t need to remember
+      em anything
+      | !
   hr
   form(method="post")
     h2 Add a Reminder

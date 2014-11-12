@@ -4,7 +4,12 @@ var model = require('../models/reminders');
 
 router
   .get('/', function(req, res) {
-    res.render('reminders', { title: 'Reminders!' });
+    model.getAll(function (docs) {
+      res.render('reminders', {
+        title: 'Reminders!',
+        reminders: docs
+      });
+    });
   })
   .post('/', function(req, res) {
     model.create(req, function () {
