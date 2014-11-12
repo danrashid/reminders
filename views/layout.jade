@@ -5,3 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
+    script(type='text/javascript').
+      document.querySelector('form').onsubmit = function () {
+        document.querySelector('button').setAttribute('disabled', true);
+      };
