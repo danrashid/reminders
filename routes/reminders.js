@@ -24,6 +24,11 @@ router
         reminder: doc
       });
     });
+  })
+  .post('/:id', function(req, res) {
+    model.update(req, function (doc) {
+      res.redirect('/reminders');
+    });
   });
 
 module.exports = router;

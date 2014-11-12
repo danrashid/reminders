@@ -2,6 +2,7 @@
 Sources:
   • https://www.npmjs.org/package/mongodb
   • http://mongodb.github.io/node-mongodb-native/1.4/markdown-docs/queries.html
+  • http://mongodb.github.io/node-mongodb-native/api-generated/collection.html
 */
 
 var MongoClient = require('mongodb').MongoClient;
@@ -61,5 +62,30 @@ exports.get = function (req, callback) {
       console.log('Connection closed');
       callback(doc);
     });
+  });
+};
+
+exports.update = function (req, callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log('Connected correctly to server');
+
+    var id = new ObjectID(req.params.id);
+
+    db.collection('reminders').findAndModify(
+      {_id: id},
+      [],
+      {
+        name: req.body.name,
+        date: req.body.date
+      },
+      function(err, doc) {
+        assert.equal(err, null);
+        console.log('Updated ' + JSON.stringify(doc));
+        db.close();
+        console.log('Connection closed');
+        callback(doc);
+      }
+    );
   });
 };
