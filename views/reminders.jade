@@ -2,4 +2,16 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  hr
+  form(method="post")
+    h2 Add a Reminder
+    p
+      label(for="name") Name
+      br
+      input(type="text" name="name" id="name" required)
+    p
+      label(for="date") Date
+      br
+      input(type="datetime-local" name="date" id="date" required)
+    p
+      button(type="submit") Create Reminder
