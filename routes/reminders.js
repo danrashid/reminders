@@ -16,6 +16,14 @@ router
       // Always redirect after POSTing! (unless it's AJAXy)
       res.redirect('/reminders');
     });
+  })
+  .get('/:id', function(req, res) {
+    model.get(req, function (doc) {
+      res.render('reminder', {
+        title: 'Editing ' + doc.name,
+        reminder: doc
+      });
+    });
   });
 
 module.exports = router;

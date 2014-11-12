@@ -5,6 +5,7 @@ Sources:
 */
 
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 var assert = require('assert');
 var url = 'mongodb://localhost:27017/myproject';
 
@@ -37,6 +38,28 @@ exports.getAll = function (callback) {
       db.close();
       console.log('Connection closed');
       callback(docs);
+    });
+  });
+};
+
+exports.get = function (req, callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log('Connected correctly to server');
+
+    /*
+    This is a common gotcha. If looking up by the default _id stored on Mongo objects,
+    you can't simply query by the _id string. It has to be cast as an ObjectID object first.
+    http://mongodb.github.io/node-mongodb-native/1.4/api-bson-generated/objectid.html
+    */
+    var id = new ObjectID(req.params.id);
+
+    db.collection('reminders').findOne({_id: id}, function(err, doc) {
+      assert.equal(err, null);
+      console.log('Found ' + JSON.stringify(doc));
+      db.close();
+      console.log('Connection closed');
+      callback(doc);
     });
   });
 };

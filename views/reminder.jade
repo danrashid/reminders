@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  p
+    a(href="/") Back
+  hr
+  form(method="post")
+    p
+      label(for="name") Name
+      br
+      input(type="text" name="name" id="name" value="#{reminder.name}" required)
+    p
+      label(for="date") Date
+      br
+      input(type="datetime-local" name="date" id="date" value="#{reminder.date}" required)
+    p
+      button(type="submit") Save Reminder
