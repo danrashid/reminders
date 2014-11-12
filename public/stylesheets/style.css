@@ -11,3 +11,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+th {
+  text-align: left;
+  padding-bottom: .5em;
+}
+
+td {
+  padding: .5em .5em .5em 0;
+}

@@ -33,13 +33,16 @@ exports.getAll = function (callback) {
     assert.equal(null, err);
     console.log('Connected correctly to server');
 
-    db.collection('reminders').find().toArray(function(err, docs) {
-      assert.equal(err, null);
-      console.log('Found ' + docs.length + ' docs');
-      db.close();
-      console.log('Connection closed');
-      callback(docs);
-    });
+    db.collection('reminders')
+      .find()
+      .sort({date: 1})
+      .toArray(function(err, docs) {
+        assert.equal(err, null);
+        console.log('Found ' + docs.length + ' docs');
+        db.close();
+        console.log('Connection closed');
+        callback(docs);
+      });
   });
 };
 
