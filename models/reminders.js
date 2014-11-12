@@ -92,3 +92,24 @@ exports.update = function (req, callback) {
     );
   });
 };
+
+exports.remove = function (req, callback) {
+  MongoClient.connect(url, function(err, db) {
+    assert.equal(null, err);
+    console.log('Connected correctly to server');
+
+    var id = new ObjectID(req.params.id);
+
+    db.collection('reminders').findAndRemove(
+      {_id: id},
+      [],
+      function(err, result) {
+        assert.equal(err, null);
+        console.log('Removed ' + JSON.stringify(req.body));
+        db.close();
+        console.log('Connection closed');
+        callback(result);
+      }
+    );
+  });
+};

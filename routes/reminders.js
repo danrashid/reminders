@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 var model = require('../models/reminders');
 
+function update(req, res) {
+  model.update(req, function () {
+    res.redirect('/reminders');
+  });
+}
+
+function remove(req, res) {
+  model.remove(req, function () {
+    res.redirect('/reminders');
+  });
+}
+
 router
   .get('/', function(req, res) {
     model.getAll(function (docs) {
@@ -26,9 +38,8 @@ router
     });
   })
   .post('/:id', function(req, res) {
-    model.update(req, function (doc) {
-      res.redirect('/reminders');
-    });
+    // Oops! delete is a reserved word in JavaScript. Let's call it remove instead.
+    (req.body.method === 'delete' ? remove : update)(req, res);
   });
 
 module.exports = router;
