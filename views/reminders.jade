@@ -30,3 +30,11 @@ block content
       input(type="datetime-local" name="date" id="date" required)
     p
       button(type="submit") Create Reminder
+
+  script(type='text/javascript').
+    var date = new Date(),
+      tzOffsetInMs = date.getTimezoneOffset() * 60 * 1000,
+      tzAdjustedDate = new Date(+date - tzOffsetInMs),
+      dateValue = tzAdjustedDate.toISOString().substr(0, 16);
+
+    document.querySelector('#date').value = dateValue;
