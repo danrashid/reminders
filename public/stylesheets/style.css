@@ -20,3 +20,7 @@ th {
 td {
   padding: .5em .5em .5em 0;
 }
+
+button.delete {
+  background: Tomato;
+}

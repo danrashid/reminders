@@ -22,4 +22,9 @@ block content
       td(align="right")
         form(method="post")
           input(type="hidden" name="method" value="delete")
-          button(type="submit" style="background: Tomato") Delete
+          button(type="submit").delete Delete
+
+  script(type='text/javascript').
+    document.querySelector('button.delete').onclick = function () {
+      return confirm('Hey, you sure you wanna do that?');
+    };
